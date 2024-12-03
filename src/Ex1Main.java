@@ -37,9 +37,15 @@ public class Ex1Main {
         Scanner in = new Scanner(System.in);
         System.out.println("Enter a string as number#"+index+" (or \"quit\" to end the program): ");
         String num = in.nextLine();
+
+        if (!Ex1.isNumber(num)) {
+            System.out.println("ERR: num"+index+" is in the wrong format! ("+num+")");
+            return "Err";}
+
         if (num.equals("quit")) {
             System.out.println("Quiting...");
             return "Err";}
+
         int valNum1 = Ex1.number2Int(num);
         System.out.println("num"+index+"= "+num+" is number: "+Ex1.isNumber(num)+" , value: "+valNum1);
         return num;
