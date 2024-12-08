@@ -9,11 +9,11 @@ public class Ex1Main {
 
         nums[0] = assignNumber(1);
         if (nums[0].equals("Err")) return;
-        int val1 = Ex1.number2Int(nums[0]);
+        int val1 = Ex1.number2Int(Ex1.toStdNum(nums[0]));
 
         nums[1] = assignNumber(2);
         if (nums[1].equals("Err")) return;
-        int val2 = Ex1.number2Int(nums[1]);
+        int val2 = Ex1.number2Int(Ex1.toStdNum(nums[1]));
 
         // result
         System.out.println("Enter a base for output: (a number [2,16] ");
@@ -37,8 +37,9 @@ public class Ex1Main {
         Scanner in = new Scanner(System.in);
         System.out.println("Enter a string as number#"+index+" (or \"quit\" to end the program): ");
         String num = in.nextLine();
+        String stdNum = Ex1.toStdNum(num);
 
-        if (!Ex1.isNumber(num)) {
+        if (!Ex1.isNumber(stdNum)) {
             System.out.println("ERR: num"+index+" is in the wrong format! ("+num+")");
             return "Err";}
 
@@ -46,8 +47,8 @@ public class Ex1Main {
             System.out.println("Quiting...");
             return "Err";}
 
-        int valNum1 = Ex1.number2Int(num);
-        System.out.println("num"+index+"= "+num+" is number: "+Ex1.isNumber(num)+" , value: "+valNum1);
+        int valNum1 = Ex1.number2Int(stdNum);
+        System.out.println("num"+index+"= "+num+" is number: "+Ex1.isNumber(stdNum)+" , value: "+valNum1);
         return num;
     }
 

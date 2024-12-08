@@ -1,6 +1,6 @@
     //package assignments.ex1;
     /// This class represents a simple solution for Ex1.
-    /// As defined here: https://docs.google.com/document/d/1AJ9wtnL1qdEs4DAKqBlO1bXCM6r6GJ_J/r/edit/edit
+    /// As defined here: [...](https://docs.google.com/document/d/1AJ9wtnL1qdEs4DAKqBlO1bXCM6r6GJ_J/r/edit/edit)
     /// In this assignment, we will design a number formatting converter and calculator.
     /// In general, we will use Strings as numbers over basis of binary till Hexa.
     /// [2-16], 10-16 are represented by A,B,..G.
@@ -10,12 +10,21 @@
     /// &ldquo;b2&rdquo;, &ldquo;0b1&rdquo;, &ldquo;123b&rdquo;, &ldquo;1234b11&rdquo;, &ldquo;3b3&rdquo;, &ldquo;-3b5&rdquo;, &ldquo;3 b4&rdquo;, &ldquo;GbG&rdquo;, "", null,
     /// You should implement the following static functions:
     public class Ex1 {
-        /**
-         * Convert the given number (num) to a decimal representation (as int).
-         * It the given number is not in a valid format returns -1.
-         * @param ch a String representing a number in basis [2,16]
-         */
 
+        /**
+        This function return the number in a standard number format
+         the return string is only different if the number is in base 10 without the "bA" part
+         otherwise it is the same
+        **/
+        public static String toStdNum(String num)
+        {
+            for (int i = 0; i < num.length(); i++)
+                if(num.charAt(i) > '9' || num.charAt(i) < '0') return num;
+            return num + 'b' + 'A';
+        }
+
+
+        // this function returns the correlated integer value to a given character
         public static int charToInt(char ch)
         {
 
@@ -30,6 +39,7 @@
 
         }
 
+        // this function returns the correlated char sign to a given integer
         public static char intToChar(int num)
         {
             if (num < 0 || num > 15) return '-';
@@ -42,6 +52,12 @@
                 else return (char) ('0' + num);
         }
 
+
+        /**
+         * Convert the given number (num) to a decimal representation (as int).
+         * It the given number is not in a valid format returns -1.
+         * @ param cha  a String representing a number in basis [2,16]
+         */
         public static int number2Int(String num) {
             if (!isNumber(num)) return -1;
             int  base = charToInt(num.charAt(num.length()-1));
@@ -99,7 +115,8 @@
             }
             if (num < 0 || base < 2 || base > 16) return "";
             ans.reverse();
-            return ans. append("b").append(intToChar(base)).toString();
+            if (base == 16) return ans.append("bG").toString();
+            return ans.append("b").append(intToChar(base)).toString();
         }
 
         /**
@@ -128,7 +145,7 @@
 
             for (int i = 0; i < arr.length; i++)
             {
-                int numberValue = number2Int(arr[i]);
+                int numberValue = number2Int(toStdNum(arr[i]));
                 if (numberValue > maxValue)
                 {
                 maxValue = numberValue;
