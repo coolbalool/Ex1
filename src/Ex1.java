@@ -14,7 +14,7 @@
         /**
         This function return the number in a standard number format
          the return string is only different if the number is in base 10 without the "bA" part
-         otherwise it is the same
+         otherwise it returns num without changes
         **/
         public static String toStdNum(String num)
         {
@@ -27,7 +27,7 @@
         // this function returns the correlated integer value to a given character
         public static int charToInt(char ch)
         {
-
+            // if num is between 0 and 9 you can return the base minus the  ascii code for '0' will return the num as int
             if ((ch >= '0' && ch <= '9')) return ch - '0';
             else if (ch == 'A' || ch == 'a') return 10;
             else if (ch == 'B' || ch == 'b') return 11;
@@ -35,14 +35,14 @@
             else if (ch == 'D' || ch == 'd') return 13;
             else if (ch == 'E' || ch == 'e') return 14;
             else if (ch == 'F' || ch == 'f') return 15;
-            return -1;
+            return -1; // the char is not a valid base
 
         }
 
         // this function returns the correlated char sign to a given integer
         public static char intToChar(int num)
         {
-            if (num < 0 || num > 15) return '-';
+            if (num < 0 || num > 15) return '-'; // the number is not a proper base for the program
             if (num == 10) return 'A';
                 else if (num == 11) return 'B';
                 else if (num == 12) return 'C';
@@ -58,10 +58,10 @@
          * It the given number is not in a valid format returns -1.
          * @ param cha  a String representing a number in basis [2,16]
          */
-        public static int number2Int(String num) {
+            public static int number2Int(String num) {
             if (!isNumber(num)) return -1;
             int  base = charToInt(num.charAt(num.length()-1));
-            if (num.charAt(num.length()-1) == 'G') base = 16;
+            if (num.charAt(num.length()-1) == 'G') base = 16; // checks for base 16 because the charToInt function doesn't
             int ans = 0;
             int mult = 1;
 
@@ -78,13 +78,13 @@
          * @return true iff the given String is in a number format
          */
         public static boolean isNumber(String a) {
-            if (a == null || a.length() < 3) return false;
+            if (a == null || a.length() < 3) return false; // minimum length for valid number is 3 (xbB)
 
             int base = charToInt(a.charAt(a.length()-1));
-            if (a.charAt(a.length()-1) == 'G') base = 16;
-            if (base == -1) return false;
+            if (a.charAt(a.length()-1) == 'G') base = 16; // checks for base 16
+            if (base == -1) return false; // checks for invalid base
 
-            if(a.charAt(a.length()-2) != 'b') return false;
+            if(a.charAt(a.length()-2) != 'b') return false; // checks if the one before the last char is b
 
             boolean ans = true;
             for (int i = 0; i < a.length() -2; i++ ) {
@@ -103,20 +103,20 @@
          * @return a String representing a number (in base) equals to num, or an empty String (in case of wrong input).
          */
         public static String int2Number(int num, int base) {
-            StringBuilder ans = new StringBuilder();
+            StringBuilder ans = new StringBuilder(); // help to combine strings, add chars to is and easily reverse the string
             int division = num;
-            if (num == 0) return "0b" + intToChar(base);
+            if (num == 0) return "0b" + intToChar(base); // for num = 0 0bB is the only thing that works
 
             while (division >= 1)
             {
-                ans.append(intToChar(division % base));
-                division -= division % base;
+                ans.append(intToChar(division % base)); // add the leftover from the division
+                division -= division % base; // reduces the leftover from the division
                 division /= base;
             }
-            if (num < 0 || base < 2 || base > 16) return "";
-            ans.reverse();
-            if (base == 16) return ans.append("bG").toString();
-            return ans.append("b").append(intToChar(base)).toString();
+            if (num < 0 || base < 2 || base > 16) return ""; // checks for invalid base and num
+            ans.reverse(); // the solution is in reverse
+            if (base == 16) return ans.append("bG").toString(); // individually for base 16
+            return ans.append("b").append(intToChar(base)).toString(); // adds the base
         }
 
         /**
