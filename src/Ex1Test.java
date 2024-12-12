@@ -37,6 +37,25 @@ public class Ex1Test {
     @Test
     public void testIsNumber()
     {
+        // From the instruction:
+        assertTrue(Ex1.isNumber("100111b2"));
+        assertTrue(Ex1.isNumber("12345b6"));
+        assertTrue(Ex1.isNumber("012b5"));
+        assertTrue(Ex1.isNumber("123bG"));
+        assertTrue(Ex1.isNumber("EFbG"));
+
+        assertFalse(Ex1.isNumber("b2"));
+        assertFalse(Ex1.isNumber("0b1"));
+        assertFalse(Ex1.isNumber("123b"));
+        assertFalse(Ex1.isNumber("1234b11"));
+        assertFalse(Ex1.isNumber("3b3"));
+        assertFalse(Ex1.isNumber("-3b5"));
+        assertFalse(Ex1.isNumber("3 b4"));
+        assertFalse(Ex1.isNumber("GbG"));
+        assertFalse(Ex1.isNumber(null));
+        assertFalse(Ex1.isNumber(""));
+
+
         assertTrue(Ex1.isNumber("123bA"));
         assertTrue(Ex1.isNumber("100111b2"));
 
@@ -72,6 +91,12 @@ public class Ex1Test {
     @Test
     public void testEquals()
     {
+
+        //from the instruction
+
+        // Needed to use the toStdNum because the equals function gets the already std number format
+        assertTrue(Ex1.equals(Ex1.toStdNum("135"), "135bA"));
+
         assertTrue(Ex1.equals("1DbG", "29bA"));
         assertTrue(Ex1.equals("0b2", "0bA"));
 

@@ -82,7 +82,7 @@
 
             int base = charToInt(a.charAt(a.length()-1));
             if (a.charAt(a.length()-1) == 'G') base = 16; // checks for base 16
-            if (base == -1) return false; // checks for invalid base
+            if (base < 2) return false; // checks for invalid base
 
             if(a.charAt(a.length()-2) != 'b') return false; // checks if the one before the last char is b
 
